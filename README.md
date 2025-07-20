@@ -1,325 +1,248 @@
-# Silent_Turtle_Linux
-Silent Turtle is a Python Wi-Fi pentesting toolkit with live scanning, handshake capture, and CPU-based WPA cracking. It features pause/resume, customizable password patterns, and .cap to .pcap conversion for GPU cracking on Windows. Perfect for quiet, effective Wi-Fi security testing without GPU reliance.
+Silent Turtle — Detailed Documentation
 
-Silent Turtle is a Python Wi-Fi pentesting toolkit with live scanning, handshake capture, and CPU-based WPA cracking. It features pause/resume, customizable password patterns, and .cap to .pcap conversion for GPU cracking on Windows. Perfect for quiet, effective Wi-Fi security testing without GPU reliance.
+Overview
 
----- IF YOU HAVE ISSUES WITH MONITOR MODE - RESTART THE PROGRAM ----
+Silent Turtle is a comprehensive Python-based Wi-Fi penetration testing toolkit designed for Linux environments. It integrates extensive capabilities for wireless scanning, handshake capturing, password cracking using CPU-based methods, captive portal creation, password pattern generation, and exporting captures for GPU-based cracking on external systems (Windows or GPU-equipped Linux machines).
 
-Silent Turtle — Complete Install Requirements
-OS
-Linux only (Ubuntu/Debian recommended)
+System Requirements
 
-Windows NOT supported for running; ONLY for exporting .pcap files for GPU cracking externally
+Supported Operating System
 
-System Packages (Linux)
-Install all these with your package manager (apt example below):
+Linux Only: Ubuntu/Debian recommended.
 
-bash
-Copy
-sudo apt update
-sudo apt install -y \
-    python3 python3-pip python3-pyqt5 \
-    build-essential libpcap-dev libsqlite3-dev \
-    aircrack-ng iw wireless-tools tcpdump \
-    wireshark # includes editcap for .cap to .pcap conversion
-python3-pyqt5 — GUI
-
-build-essential — compilers for dependencies
-
-libpcap-dev — packet capture libs
-
-libsqlite3-dev — database support
-
-aircrack-ng — core capture & cracking tools
-
-iw and wireless-tools — wireless device management
-
-tcpdump — packet analysis/debugging
-
-wireshark — includes editcap for capture file conversion
-
-Python Packages (install via pip3)
-bash
-Copy
-pip3 install scapy pyqt5
-Ollama (LLM AI Assistant)
-Required if you want to use the Ollama Chat UI inside Silent Turtle
-
-Install from https://ollama.com/docs/installation
-
-Ollama CLI must be available (ollama run <model>)
-
-Download a model (e.g., dolphin-llama3:8b) with Ollama CLI before use
-
-Ollama runs on Linux or macOS only (no Windows support currently)
+Windows: NOT supported for running the application; only for handling exported .pcap files for GPU cracking.
 
 Wireless Adapter Requirements
-Must support monitor mode and packet injection on Linux
 
-Supported chipsets: Atheros, Ralink, Realtek (check your driver compatibility)
+Must support monitor mode and packet injection.
 
-Proper drivers installed and configured
+Recommended chipsets: Atheros, Ralink, Realtek.
 
-GPU Cracking (External Use Only)
-Silent Turtle uses CPU only cracking on Linux
+Proper Linux-compatible drivers required.
 
-To use GPU cracking:
+Installation Guide
 
-Export .pcap handshake files from Silent Turtle
+Linux System Packages (Install via apt)
 
-Transfer files to GPU-equipped Windows or Linux machine
+sudo apt update
+sudo apt install -y python3 python3-pip python3-pyqt5 build-essential libpcap-dev libsqlite3-dev aircrack-ng iw wireless-tools tcpdump wireshark
 
-Run GPU cracking tools (Hashcat, etc.) separately
+Python Packages (Install via pip3)
 
-Export .pcap handshake files from Silent Turtle
+pip3 install scapy pyqt5
 
-Transfer files to GPU-equipped Windows or Linux machine
+Ollama (Optional AI Chat Integration)
 
-Run GPU cracking tools (Hashcat, etc.) separately
+Install Ollama from official site.
 
+Download a model (e.g., dolphin-llama3:8b) via Ollama CLI.
 
-Silent Turtle: Advanced Wi-Fi Handshake Capture & Cracking Suite
-OVERVIEW
-Silent Turtle is a professional-grade, GUI-based wireless network security toolkit for Linux, focused on automating, accelerating, and simplifying the entire Wi-Fi handshake cracking workflow — from discovery, capture, and attack, to exhaustive password generation and distributed brute force. It is engineered for penetration testers, security researchers, and advanced users who want granular control, modular extensibility, and zero vendor lock-in.
+Detailed Features
 
-Key Principles:
+Capture Module
 
-100% offline, local-first, no cloud required
+Live SSID Feed:
 
-No commercial dependencies, FOSS preferred
-
-You control every input, wordlist, and pattern — nothing is “hardcoded”
-
-Built for high-volume, multi-target workflows
-
-Modular: Every part can be swapped or extended
-
-CORE COMPONENTS & ARCHITECTURE
-1. Capture Module
-Live Beacon Feed:
-
-Real-time display of all detected SSIDs, BSSIDs, channels, and signal strengths.
-
-Color-coded, sortable, instantly updates as networks appear/disappear.
+Displays real-time Wi-Fi networks with signal strength, SSID, BSSID, and channel info.
 
 Monitor Mode Enforcement:
 
-Automatically switches your wireless adapter to monitor mode; supports chipsets that allow it.
+Automatically sets wireless adapters to monitor mode.
+
+Manual restart recommended if initial setup fails.
 
 Channel Hopping:
 
-Hops across all (or user-chosen) Wi-Fi channels to maximize capture surface area.
+Automatically scans across Wi-Fi channels.
 
-Dwell time fully user-configurable.
+Customizable dwell times.
 
 Handshake Capture:
 
-Auto-detects 4-way WPA/WPA2 handshakes using scapy, regardless of client activity or AP stealth.
+Automatic detection and capture of WPA/WPA2 handshakes.
 
-Focused capture available for a single AP/channel.
+Focused capture available for single-target APs.
 
-Deauthentication Attack:
+Deauthentication Attacks:
 
-One-click deauths individual APs or “deauth all” for mass handshake gathering.
+Single or mass AP deauthentication to force handshakes.
 
-Automatically launches a focused 60-second capture post-deauth.
+Automatic 60-second post-deauth focused captures.
 
 Handshakes Directory:
 
-All captures saved in a structured handshakes/ folder, with .cap (original) and .pcap (editcap-converted) files.
+Stores captures as .cap and auto-converts to .pcap files.
 
-PCAP Conversion:
+File Conversion & Verification:
 
-Integrated, automatic .cap → .pcap conversion for downstream compatibility (Hashcat, Windows, etc).
+Automatic .cap to .pcap conversion via editcap (Wireshark).
 
-Verification:
+Integrity verification of captures post-conversion.
 
-Verifies all .cap and .pcap files post-capture; highlights missing or corrupted files.
+Cloned Access Point & Captive Portal
 
-2. Cloned Access Point & Captive Portal
-Cloning Tool:
+Fake AP Creation:
 
-Replicates the SSID of a target AP using airbase-ng, setting up a “fake AP” with the same name.
-
-Broadcasts on a specified channel.
+Replicates SSID and broadcasts via airbase-ng.
 
 Captive Portal:
 
-Instantly serves a custom, mobile-friendly Flask web portal that mimics a typical Wi-Fi login.
+Flask-based, customizable captive web portal.
 
-Captures and logs all attempted passwords submitted by users.
+Logs attempted passwords securely.
 
-Portal workflow:
+One-time Sessions:
 
-User connects to fake AP
+Limits attempts per session.
 
-Browser is redirected to verification page
+Automated teardown after successful captures.
 
-Entered password is logged and can trigger AP teardown if desired
+Password Generation & Combo Builder
 
-One-Time Use:
+Advanced Password Generation:
 
-Each portal session logs only the first few attempts for forensic accuracy.
+Supports extensive patterns: names, adjectives, nouns, years, months, days, digits, symbols, custom phrases.
 
-Safe teardown after successful capture (kills airbase-ng, cleans up interface, flushes iptables).
+Area-code prioritization for phone number-based passwords.
 
-3. Password Generation & Combo Builder
-Advanced Password Generator:
+Over 20 built-in password patterns.
 
-Streams password lists in chunks, optimized for WPA/WPA2 cracking.
+Combo Builder GUI:
 
-Multiple token types:
+Interactive custom password combination creation.
 
-Names, adjectives, nouns (from user-editable files)
+Drag-and-drop interface for defining password patterns.
 
-Dates: all possible years (full and short), months (number, abbr, full), days
+Supports real-time smart cracking with custom combinations.
 
-Digits: area codes, phone number structures, customizable digit runs
+ALL-PASS: Distributed Cracking Engine
 
-Special symbols, custom static phrases
+Multi-threaded Brute Force:
 
-Random insertion, letter+number mixing, prefix/suffix combos
+Supports parallel password cracking across multiple threads.
 
-Area Code Priority:
+CPU-based cracking engine (no GPU support).
 
-Optional: Restrict or prioritize combos using a custom set of 3-digit area codes
+Chunked Processing & Resumption:
 
-Combo Patterns:
+Passwords processed in configurable chunks (default: 500,000).
 
-20+ built-in generator patterns (permutations, phone numbers, name+date combos, etc)
+Checkpoint recovery and full pause/resume capabilities.
 
-User selects pattern order via drag-n-drop dialog before starting a run
-
-Combo Builder:
-
-Interactive GUI for constructing custom wordlist combos, chaining fields (e.g., Name+Year+Symbol).
-
-Combo cracking mode supports custom configurations, on-the-fly smart wordlist synthesis.
-
-Chunked Processing:
-
-Passwords are tested in buffered chunks (default: 500,000), allowing for progress tracking, pause/resume, and checkpoint recovery.
-
-4. ALL-PASS: Distributed Cracking Engine
-Parallel Brute Force:
-
-Multi-threaded worker model (3 by default), each cracking a distinct chunk in parallel.
-
-Full Resume Support:
-
-Save & restore every cracking job at any chunk, including custom area codes and pattern order.
-
-Resume even if system crashes or user restarts the program.
-
-Live Progress & Logging:
-
-Color-coded log window, chunk progress, and per-handshake status updates in real time.
+Real-time progress updates with detailed logging.
 
 Cracked Password Handling:
 
-Found keys are instantly written to .txt files next to their respective .cap/.pcap.
+Automatically saves cracked passwords to .txt files next to respective captures.
 
-5. Ollama Chat Integration (AI Assistant)
-Integrated LLM Chat UI:
+Ollama Chat Integration (Optional)
 
-Embeds a chat window running local models via Ollama (dolphin-llama3:8b or similar).
+Local LLM Chat:
 
-Lets you ask security, scripting, or operational questions without leaving the app.
+Embeds Ollama-powered AI chat for security and scripting assistance.
 
-Privacy First:
+Runs entirely offline and locally.
 
-No internet required; all LLM inference happens locally via the Ollama runtime.
+Workflow Automation & Utilities
 
-6. System & Workflow Automation
-Full Handshake Scanning:
+Automated Handshake Scanning:
 
-Automatic scan of root (/) or quick scan of handshakes/ to index all available handshake files.
+Quick or full system scans for available handshake files.
 
-Metadata extraction: SSID/BSSID parsing even from corrupted or incomplete files.
+Metadata extraction for file indexing.
 
-Safe File Operations:
+File Management:
 
-Deleting a handshake auto-deletes associated .txt (passwords) and resume files.
+Integrated deletion and cleanup of captures, logs, and associated files.
 
-Wordlist Path Persistence:
+Cross-platform Export:
 
-User-specified names, adjectives, nouns files saved per-session and passed to every cracking job.
+Prepares .pcap files for external GPU-based cracking.
 
-Modular Utility Scripts:
+GPU-based cracking not supported internally; export required.
 
-All system-level commands (iw, aircrack-ng, editcap) run in silent, robust wrappers, with error handling.
+Usage Examples
 
-7. Cross-Platform Export (for GPU cracking)
-PCAP Export:
+Capturing a Handshake
 
-All .cap handshakes are converted and verified as .pcap, ready for transfer to Windows or other GPU-equipped systems.
+Launch Silent Turtle, initiate monitor mode.
 
-No GPU on Linux:
+Start live SSID feed and identify target.
 
-Cracking engine is CPU-only by design; intended to maximize compatibility and avoid driver hell on Linux.
+Perform deauthentication attack and automatically capture handshake.
 
-Windows Use:
+Cracking a Handshake (ALL-PASS)
 
-Silent Turtle does NOT run on Windows, but exported .pcap files can be cracked with Hashcat/other GPU tools externally.
+Select handshake from the indexed table.
 
-USER WORKFLOW EXAMPLES
-Capturing a Handshake:
+Customize area codes and password patterns if desired.
 
-Launch Silent Turtle, set your interface to monitor mode.
+Initiate ALL-PASS cracking, monitor real-time progress.
 
-Start live feed; watch SSIDs and signals update in real time.
+Exporting for GPU Cracking
 
-Click to deauth a target, then immediately capture handshake traffic.
+Use Silent Turtle to capture handshake and convert to .pcap.
 
-Handshake is saved in handshakes/ as both .cap and .pcap.
+Transfer .pcap files to GPU-equipped system.
 
-Cracking a Handshake (ALL-PASS):
+Perform GPU-based cracking externally with tools like Hashcat.
 
-Select any handshake from the indexed table.
+Troubleshooting & Notes
 
-Enter custom area codes if you want (or leave blank for all).
+Monitor Mode Issues:
 
-Drag and reorder password patterns as needed in the GUI.
+Restart program if monitor mode fails initially.
 
-Start ALL-PASS. See real-time chunk logs, status, and color-coded events.
+Check compatibility and drivers if issues persist.
 
-Pause/resume at any time. All state is checkpointed.
+GPU Cracking Clarification:
 
-When key is found, password is saved and UI updates instantly.
+VMware/Linux does not support GPU sharing; hence GPU usage removed.
 
-Combo Builder (Smart Crack):
+GPU cracking functionality limited to exported .pcap files on compatible systems.
 
-Build a pattern using Name+Year+Symbol, or whatever combo is needed.
+Security & Ethical Notice
 
-Generate and crack with custom combo lists in real time.
+Silent Turtle is intended strictly for authorized network security testing. Unauthorized usage is prohibited and may be illegal.
 
-Captive Portal/Cloned AP:
+Summary
 
-Clone a network using a fake AP.
+Feature
 
-Run captive portal and harvest credentials from unsuspecting users.
+Description
 
-Export for GPU Cracking:
+Supported OS
 
-After capture, copy .pcap files to a Windows/Linux GPU box.
+Linux (Ubuntu/Debian)
 
-Run Hashcat or your preferred GPU cracker using those files.
+Wireless Compatibility
 
-SECURITY & ETHICS NOTICE
-Silent Turtle is a professional auditing tool. Only use it on networks you own or have explicit, written permission to test. Unauthorized use may be illegal and is strictly against the intent of this project.
+Monitor mode, packet injection
 
-SUMMARY TABLE
-Feature	Details
-Supported OS	Linux only (Debian/Ubuntu best)
-Wireless chipset	Any with monitor mode + injection support
-Handshake capture	Full, focused, live; deauth attack, channel hop
-PCAP export	Built-in, all .cap auto-converted to .pcap
-Wordlist generation	Fully modular, priority-ordered, 20+ pattern combos, area code filtering
-All-Pass brute force	Multi-worker, chunked, full resume, per-worker progress
-Combo builder	GUI for custom wordlists and smart cracks
-Captive portal	Flask-based, customizable, logs all password attempts
-Ollama chat	Integrated local LLM (optional), AI helper for power users
-Logging	Color-coded, per-action, chunk status, handshake stats
-GPU support	Not on Linux; export .pcap for use on GPU boxes (Hashcat etc)
+Handshake Capture
 
+Live, focused, automatic
 
+PCAP Export
+
+Automatic conversion to .pcap
+
+Password Generation
+
+Highly customizable, extensive patterns
+
+Cracking Engine
+
+CPU-based, distributed, chunked, resume capability
+
+Captive Portal
+
+Flask-based, customizable logging
+
+Ollama Integration
+
+Local offline AI assistant (optional)
+
+GPU Cracking
+
+External use only via .pcap export
