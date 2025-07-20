@@ -1,0 +1,73 @@
+main.py
+├── cracker.py
+│   cracker.py
+│   └── ui.py
+│       ui.py
+│           Button: combo_builder_btn → _open_combo_builder
+│           Button: combo_crack_btn → _on_combo_crack
+│           Button: all_pass_btn → _on_all_pass_start
+│           Button: pause_all_pass_btn → _on_all_pass_pause_resume
+│           Button: standard_gen_btn → _on_generate_standard
+│           Button: smart_gen_btn → _on_generate_smart
+│           Button: file_open_btn → _on_open
+│           Button: run_selected_btn → _on_run_selected
+│           Button: run_generated_btn → _on_run_generated
+│           Button: all_stop_btn → _on_all_stop
+│       ├── crack_worker.py
+│       │   crack_worker.py
+│       ├── file_ops.py
+│       │   file_ops.py
+│       ├── worker_manager.py
+│       │   worker_manager.py
+│       │   └── all_pass_worker.py
+│       │       all_pass_worker.py
+│       │       └── password.py
+│       │           password.py
+│       ├── generators.py
+│       │   generators.py
+│       │   └── file_ops.py
+│       │       file_ops.py
+│       ├── combo_builder.py
+│       │   combo_builder.py
+│       ├── combo_pipe_worker.py
+│       │   combo_pipe_worker.py
+│       ├── all_pass_worker.py
+│       │   all_pass_worker.py
+│       │   └── password.py
+│       │       password.py
+│       └── scanners.py
+│           scanners.py
+├── ollama.py
+│   ollama.py
+│       Button: apply_btn → _start_or_restart
+│       Button: send_btn → _on_send
+├── cloneap.py
+│   cloneap.py
+│       Button: btn_start → _start_clone
+│       Button: btn_stop → _stop_clone
+└── capture.py
+    capture.py
+    └── ui_capture.py
+        ui_capture.py
+            Button: btn_cap_start → start_capture
+            Button: btn_cap_stop → stop_capture
+            Button: btn_deauth → deauth_selected
+            Button: btn_deauth_all → deauth_all_capture
+            Button: btn_live_start → start_live_view
+            Button: btn_live_stop → stop_live_view
+        ├── sys_helpers.py
+        │   sys_helpers.py
+        ├── config.py
+        │   config.py
+        ├── utils.py
+        │   utils.py
+        └── threads.py
+            threads.py
+            ├── sys_helpers.py
+            │   sys_helpers.py
+            ├── db_utils.py
+            │   db_utils.py
+            │   └── config.py
+            │       config.py
+            └── config.py
+                config.py

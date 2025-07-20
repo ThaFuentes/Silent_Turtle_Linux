@@ -1,0 +1,7 @@
+PyQt5
+errno
+json
+logging
+pty
+scapy
+select
